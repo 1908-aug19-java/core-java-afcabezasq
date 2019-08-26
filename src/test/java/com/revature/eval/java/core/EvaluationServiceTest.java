@@ -244,7 +244,7 @@ public class EvaluationServiceTest {
 		expectedWordCount.put("one", 1);
 		expectedWordCount.put("two", 1);
 		expectedWordCount.put("three", 1);
-
+		System.out.println(expectedWordCount);
 		Map<String, Integer> actualWordCount = evaluationService.wordCount("one,\ntwo,\nthree");
 		assertEquals(expectedWordCount, actualWordCount);
 	}
