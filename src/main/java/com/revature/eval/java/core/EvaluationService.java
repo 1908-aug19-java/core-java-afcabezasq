@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 import java.lang.IllegalArgumentException;
+import java.sql.Date;
 
 public class EvaluationService {
 
@@ -359,8 +360,7 @@ public class EvaluationService {
 				if(Integer.valueOf(elemento)>Integer.valueOf((int) t)) {
 					
 					buscar=buscar-buscar/2;
-					Integer e=(Integer) sortedList.get(buscar);
-					elemento = e;
+					
 				}if(elemento!=t) {
 					Integer e=(Integer) sortedList.get(buscar);
 					elemento = e;
@@ -793,21 +793,34 @@ public class EvaluationService {
 		
 		for(int i=0;i<splitNumber.length;i++) {
 			number = number+splitNumber[i];
+			
 		}
 		
 		int numbers = 0;
 		int x = 10;
 		char[] numberChar = number.toCharArray();
 		
+		System.out.println(number.length());
 		for(int i=0;i<number.length();i++) {
-			
 			int numero=numberChar[i]-'0';
 			
+			if(numberChar[i]=='X') {
+				numberChar[i]=10;
+				
+			}
+			if(numberChar[i]>='A' && numberChar[i]<='z') {
+				
+				return false;
+				
+			}
+			numero=numberChar[i]-'0';
+			System.out.println(numbers);
 			
 			numbers = x*numero+numero;
-			x--;	
+			x--;
+			
 		}
-		
+		System.out.println(numbers);
 		if(numbers%11==0) {
 			
 			return true;
@@ -874,7 +887,9 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
+		
+		given.plus();
+        // TODO Write an implementation for this method declaration
 		return null;
 	}
 
@@ -959,8 +974,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
+		
+		String[] splitString = string.split(" |\\(|\\)|\\.|\\[|\\]|,|");
+		
+		for(String p:splitString) {
+			if(p.matches("-|a")) {
+				return false;
+			}
+			
+			
+		}
+		int[] numeros = new int[string.length()];
+		
+		for(int i=0;i<string.length();i++) {
+			System.out.println(splitString[i]);
+		}
+		
+		
+		
 		// TODO Write an implementation for this method declaration
-		return false;
+		return true;
 	}
 
 	/**
