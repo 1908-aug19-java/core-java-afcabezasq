@@ -345,35 +345,46 @@ public class EvaluationService {
 	static int getHalf(int b) {
 		return b/2;
 	}
-	static class BinarySearch<T> {
+	static class BinarySearch<T extends Comparable<T>> {
 		private List<T> sortedList;
-
+		
+		
 		public int indexOf(T t) {
-			int tamaño=sortedList.size();
+			T elementoActual;
+			int x0 = 0;
+			int x1 = sortedList.size()-1;
+			int mitad=Math.floorDiv(x0+x1, 2);
+			elementoActual=sortedList.get(mitad);
 			
-			int buscar;
-			
-			buscar=tamaño/2+1;
-			Integer elemento = (Integer) sortedList.get(buscar);
-			
-			while(elemento!=t) {
-				if(Integer.valueOf(elemento)>Integer.valueOf((int) t)) {
+			while(x0<=x1) {				
+				elementoActual=sortedList.get(mitad);
+				
+				try {
+					mitad=Math.floorDiv(x0+x1, 2);
+					if(elementoActual.compareTo(t)>0) {
+						
+						x1=mitad+1;
+						
+					}if(elementoActual.compareTo(t)<0) {
+						
+						x0=mitad-1;
+						
+					}else {
+						return mitad;
+					}
+				}catch(Exception e) {
 					
-					buscar=buscar-buscar/2;
 					
-				}if(elemento!=t) {
-					Integer e=(Integer) sortedList.get(buscar);
-					elemento = e;
-					break;
-				}else{
-					buscar=buscar+buscar/2;
-					Integer e=(Integer) sortedList.get(buscar);
-					elemento = e;
 				}
+				
+				
+				
+				
 			}
+					
 			
 			
-			return buscar;
+			return mitad;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -888,7 +899,7 @@ public class EvaluationService {
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
 		
-		given.plus();
+		
         // TODO Write an implementation for this method declaration
 		return null;
 	}
@@ -976,13 +987,10 @@ public class EvaluationService {
 	public boolean isLuhnValid(String string) {
 		
 		String[] splitString = string.split(" |\\(|\\)|\\.|\\[|\\]|,|");
-		
 		for(String p:splitString) {
 			if(p.matches("-|a")) {
 				return false;
 			}
-			
-			
 		}
 		int[] numeros = new int[string.length()];
 		
